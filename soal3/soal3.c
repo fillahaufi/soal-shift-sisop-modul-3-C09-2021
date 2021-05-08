@@ -14,13 +14,15 @@ char temp[1024];
 int is_file(const char *path) {
     struct stat path_stat;
     stat(path, &path_stat);
-    return S_ISREG(path_stat.st_mode);
+    int ans = S_ISREG(path_stat.st_mode);
+    return ans;
 }
 
 int is_folder(const char *path) {
     struct stat path_stat;
     stat(path, &path_stat);
-    return S_ISDIR(path_stat.st_mode);
+    int ans = S_ISDIR(path_stat.st_mode)
+    return ans;
 }
 
 int main(int argc, char *argv[]) {
