@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<pthread.h>
+#include<sys/ipc.h>
+#include<sys/shm.h>
 #include<unistd.h>
 #include<stdlib.h>
 #define MAX 6
@@ -21,13 +23,17 @@ void *multipl(void* arg)
 
 int main()
 {
-
+	key_t key = 4121;
+    	int shmid = shmget(key, 512, IPC_CREAT | 0666);
+	void* memory = shmat(shmid, NULL, 0);
+   	long long (*A)[6] = memory;
+	
 	int matA[MAX][MAX];
 	int matB[MAX][MAX];
 	
 	
 	int r1=4, c1=3, r2=3, c2=6;
-    int i, j, k;
+    	int i, j, k;
 
 	printf("input matriks A : \n");
 	for (i = 0; i < r1; i++) {
