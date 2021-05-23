@@ -14,13 +14,17 @@
 ```
 int main()
 {
-
+	key_t key = 4121;
+    	int shmid = shmget(key, 512, IPC_CREAT | 0666);
+	void* memory = shmat(shmid, NULL, 0);
+   	long long (*A)[6] = memory;
+    
 	int matA[MAX][MAX];
 	int matB[MAX][MAX];
 	
 	
 	int r1=4, c1=3, r2=3, c2=6;
-    int i, j, k;
+    	int i, j, k;
 
 	printf("input matriks A : \n");
 	for (i = 0; i < r1; i++) {
@@ -93,6 +97,7 @@ int main()
     return 0;
 }
 ```
+
 3. Fungsi perkalian matriks :
 ```
 void *multipl(void* arg)
@@ -116,7 +121,7 @@ void *multipl(void* arg)
 
 #### Soal 2b. ####
 1. Diminta membuat program untuk mem faktorial matriks A (output dari soal2a) dan matriks B (input)
-2. Source code utama :
+2. Source code main :
 ```
 int main(){
     key_t key = 4121;
@@ -170,6 +175,7 @@ int main(){
 	  return 0;
 }
 ```
+
 3. Fungsi perkalian tiap cell :
 ```
 void* perkaliancell(void* args){
@@ -196,6 +202,7 @@ void* perkaliancell(void* args){
     }
 }
 ```
+
 4. Gunakan shared memory pada soal b dan a :
 ```
     key_t key = 4121;
@@ -241,6 +248,7 @@ void showPrc() {
     exit(EXIT_SUCCESS);
 }
 ```
+
 4. Fungsi untuk sorting process :
 ```
 void sortPrc() {
@@ -257,6 +265,7 @@ void sortPrc() {
     exit(EXIT_SUCCESS);
 }
 ```
+
 5. Fungsi untuk mengambil process 5 teratas :
 ```
 void fivePrc() {
