@@ -222,7 +222,7 @@ int main(int argc, char *argv[]) {
     {
     	char asal[1001];
         strcpy(asal, argv[2]);
-        sortfile;
+        sortfile(asal);
     }
     else if(strcmp(argv[1], "*") == 0)
     {
