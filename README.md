@@ -210,6 +210,10 @@ void* perkaliancell(void* args){
 	  void* memory = shmat(shmid, NULL, 0);
     long long (*A)[6] = memory;
 ```
+5. Output :
+
+![image](https://user-images.githubusercontent.com/63279983/119266506-48fff080-bc15-11eb-8845-abcab672d746.png)
+
 
 #### Soal 2c. ####
 1. Diminta membuat program untuk mengecek 5 proses teratas apa saja yang memakan resource komputer
