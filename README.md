@@ -206,8 +206,70 @@ void* perkaliancell(void* args){
 
 #### Soal 2c. ####
 1. Diminta membuat program untuk mengecek 5 proses teratas apa saja yang memakan resource komputer
-2. Source code :
+2. Source code main :
+```
+int main() {
+    if(pipe(pipe_[0]) == -1){
+        perror("ERROR gaes");
+        exit(EXIT_FAILURE);
+    }
 
+    if(fork() == 0) showPrc();
+
+    if(pipe(pipe_[1]) == -1){
+        perror("ERROR gaes");
+        exit(EXIT_FAILURE);
+    }
+    if(fork() == 0) sortPrc();
+
+    close(pipe_[0][0]);
+    close(pipe_[0][1]);
+
+    if(fork() == 0) fivePrc();
+}
+```
+
+3. Fungsi untuk menampilkan process :
+```
+void showPrc() {
+    dup2(pipe_[0][1], 1);
+
+    // close fds
+    close(pipe_[0][0]);
+    close(pipe_[0][1]);
+    execlp("ps", "ps", "-aux", NULL);
+    exit(EXIT_SUCCESS);
+}
+```
+4. Fungsi untuk sorting process :
+```
+void sortPrc() {
+    dup2(pipe_[0][0], 0);
+    dup2(pipe_[1][1], 1); 
+
+    // close fds
+    close(pipe_[0][0]);
+    close(pipe_[0][1]);
+    close(pipe_[1][0]);
+    close(pipe_[1][1]);
+
+    execlp("sort", "sort", "-nrk", "3,3", NULL);
+    exit(EXIT_SUCCESS);
+}
+```
+5. Fungsi untuk mengambil process 5 teratas :
+```
+void fivePrc() {
+    dup2(pipe_[1][0], 0);
+
+    // close fds
+    close(pipe_[1][0]);
+    close(pipe_[1][1]);
+    
+    execlp("head", "head", "-5", NULL);
+    exit(EXIT_SUCCESS);
+}
+```
 
 ## Soal 3 ##
 ### Pengerjaan ###
