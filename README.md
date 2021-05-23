@@ -113,6 +113,8 @@ int main()
 
 ![image](https://user-images.githubusercontent.com/63279983/119259225-70e05b80-bbf7-11eb-9213-87ac66e100db.png)
 
+#### Soal 2b. ####
+#### Soal 2c. ####
 
 ## Soal 3 ##
 ### Pengerjaan ###
