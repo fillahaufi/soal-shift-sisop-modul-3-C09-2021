@@ -10,29 +10,8 @@
 ### Pengerjaan ###
 #### Soal 2a. ####
 1. Diminta untuk membuat program perkalian matrix (4x3 dan 3x6) menggunakan thread
-2. Source code berisi input matriks dan algoritma perkalian matriks:
+2. Source code main :
 ```
-#include<stdio.h>
-#include<pthread.h>
-#include<unistd.h>
-#include<stdlib.h>
-#define MAX 6
-
-void *multipl(void* arg)
-{
-	int *data = (int *)arg;
-	int k = 0, i = 0;
-	
-	int x = data[0];
-	for (i = 1; i <= x; i++)
-		k += data[i]*data[i+x];
-	
-	int *p = (int*)malloc(sizeof(int));
-	*p = k;
-	
-	pthread_exit(p);
-}
-
 int main()
 {
 
@@ -114,13 +93,116 @@ int main()
     return 0;
 }
 ```
-3. Output :
+3. Fungsi perkalian matriks :
+```
+void *multipl(void* arg)
+{
+	int *data = (int *)arg;
+	int k = 0, i = 0;
+	
+	int x = data[0];
+	for (i = 1; i <= x; i++)
+		k += data[i]*data[i+x];
+	
+	int *p = (int*)malloc(sizeof(int));
+	*p = k;
+	
+	pthread_exit(p);
+}
+```
+4. Output :
 
 ![image](https://user-images.githubusercontent.com/63279983/119259225-70e05b80-bbf7-11eb-9213-87ac66e100db.png)
 
 #### Soal 2b. ####
 1. Diminta membuat program untuk mem faktorial matriks A (output dari soal2a) dan matriks B (input)
-2. Source code :
+2. Source code utama :
+```
+int main(){
+    key_t key = 4121;
+    int shmid = shmget(key, 512, IPC_CREAT | 0666);
+	  void* memory = shmat(shmid, NULL, 0);
+    long long (*A)[6] = memory;
+
+    Params *argument;
+
+	  printf("Matriks A x Matriks B pada soal2a : \n");
+	  for(int i=0; i<4; i++){
+		  for(int j=0; j<6; j++){
+			  printf("%lld ", A[i][j]);
+		  }
+      printf("\n");
+	  }
+
+    printf("\nMasukkan matriks 4x6:\n");
+	  for(int i = 0; i<4; i++){
+		  for(int j = 0; j<6; ++j){
+			  scanf("%lld", &B[i][j]);
+		  }
+	  }
+    printf("\n");
+
+    for(int i=0; i<4; i++){
+		  for(int j=0; j<6; j++){
+         argument = (Params*) malloc(sizeof(Params));
+         argument->A = A[i][j];
+         argument->B = B[i][j];
+         argument->address = &result[i][j];
+            
+         pthread_create(&thread_id[i][j], NULL, &perkaliancell, (void *)argument);
+		  }
+	  }
+
+    for(int i=0; i<4; i++){
+		  for(int j=0; j<6; j++){
+         pthread_join(thread_id[i][j], NULL);
+		  }
+  	}
+
+    printf("Hasil fungsi faktorial : \n");
+    for(int i=0; i<4; i++){
+		  for(int j=0; j<6; j++){
+         printf("%lld ", result[i][j]);
+		  }
+      printf("\n");
+	  }
+  
+	  return 0;
+}
+```
+3. Fungsi perkalian tiap cell :
+```
+void* perkaliancell(void* args){
+    struct paramArgs *arg = args;
+    long long A = arg->A;
+    long long B = arg->B;
+    long long *address = arg->address;
+    if(A >= B){
+        long long hasil=1;
+        long long start = (A-B)+1;
+        if(A-B == 0) start = 1;
+        if(B==0) hasil = 0;
+        for(long long i=start; i<=A; i++){
+            hasil *= i;
+        }
+        *address = hasil;
+    }else if(B > A){
+        long long hasil=1;
+        if(A==0) hasil = 0;
+        for(long long i=1; i<=A; i++){
+            hasil *= i;
+        }
+        *address = hasil;
+    }
+}
+```
+4. Gunakan shared memory pada soal b dan a :
+```
+    key_t key = 4121;
+    int shmid = shmget(key, 512, IPC_CREAT | 0666);
+	  void* memory = shmat(shmid, NULL, 0);
+    long long (*A)[6] = memory;
+```
 
 #### Soal 2c. ####
 1. Diminta membuat program untuk mengecek 5 proses teratas apa saja yang memakan resource komputer
