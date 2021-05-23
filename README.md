@@ -10,7 +10,7 @@
 ### Pengerjaan ###
 #### Soal 2a. ####
 1. Diminta untuk membuat program perkalian matrix (4x3 dan 3x6) menggunakan thread
-2. source code :
+2. Source code berisi input matriks dan algoritma perkalian matriks:
 ```
 #include<stdio.h>
 #include<pthread.h>
