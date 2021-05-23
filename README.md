@@ -283,6 +283,10 @@ void fivePrc() {
     exit(EXIT_SUCCESS);
 }
 ```
+6. Output :
+
+![image](https://user-images.githubusercontent.com/63279983/119266561-777dcb80-bc15-11eb-9f0e-c77345122e5d.png)
+
 
 ## Soal 3 ##
 ### Pengerjaan ###
