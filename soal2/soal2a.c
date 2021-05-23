@@ -29,32 +29,35 @@ int main()
 	int r1=4, c1=3, r2=3, c2=6;
     int i, j, k;
 
-
+	printf("input matriks A : \n");
 	for (i = 0; i < r1; i++) {
         for (j = 0; j < c1; j++)
-            matA[i][j] = rand() % 21;
+			scanf("%d", &matA[i][j]);
+            // matA[i][j] = rand() % 21;
     }
     
+	printf("\ninput matriks B : \n");
 	for (i = 0; i < r2; i++) {
         for (j = 0; j < c2; j++)
-            matB[i][j] = rand() % 21;
+			scanf("%d", &matB[i][j]);
+            // matB[i][j] = rand() % 21;
     }
 	
-    printf("Matriks A : \n");
-	for (i = 0; i < r1; i++){
-		for(j = 0; j < c1; j++)
-			printf("%d ",matA[i][j]);
-		printf("\n");
-	}
-    printf("\n");
+    // printf("Matriks A : \n");
+	// for (i = 0; i < r1; i++){
+	// 	for(j = 0; j < c1; j++)
+	// 		printf("%d ",matA[i][j]);
+	// 	printf("\n");
+	// }
+    // printf("\n");
 			
-    printf("Matriks B : \n");
-	for (i = 0; i < r2; i++){
-		for(j = 0; j < c2; j++)
-			printf("%d ",matB[i][j]);
-		printf("\n");	
-	}
-    printf("\n");
+    // printf("Matriks B : \n");
+	// for (i = 0; i < r2; i++){
+	// 	for(j = 0; j < c2; j++)
+	// 		printf("%d ",matB[i][j]);
+	// 	printf("\n");	
+	// }
+    // printf("\n");
 	
 	int max = r1*c2;
 		
@@ -79,7 +82,7 @@ int main()
         }
     }
 	
-	printf("Matriks A x Matriks B : \n");
+	printf("\nMatriks A x Matriks B : \n");
 	for (i = 0; i < max; i++)
 	{
         void *k;
@@ -91,6 +94,8 @@ int main()
         if ((i + 1) % c2 == 0)
             printf("\n");
 	}
+
+	printf("\n");
 
     return 0;
 }
