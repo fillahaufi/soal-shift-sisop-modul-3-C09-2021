@@ -1,5 +1,5 @@
 # soal-shift-sisop-modul-3-C09-2021
-# Laporan Resmi Modul 2 #
+# Laporan Resmi Modul 3 #
 
 ## Soal 1 ##
 ### Pengerjaan ###
