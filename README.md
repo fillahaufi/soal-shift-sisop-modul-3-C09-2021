@@ -123,6 +123,9 @@ int main()
 2. Source code :
 
 #### Soal 2c. ####
+1. Diminta membuat program untuk mengecek 5 proses teratas apa saja yang memakan resource komputer
+2. Source code :
+
 
 ## Soal 3 ##
 ### Pengerjaan ###
