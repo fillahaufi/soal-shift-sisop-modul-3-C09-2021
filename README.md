@@ -119,7 +119,13 @@ int main()
 ![image](https://user-images.githubusercontent.com/63279983/119259225-70e05b80-bbf7-11eb-9213-87ac66e100db.png)
 
 #### Soal 2b. ####
+1. Diminta membuat program untuk mem faktorial matriks A (output dari soal2a) dan matriks B (input)
+2. Source code :
+
 #### Soal 2c. ####
+1. Diminta membuat program untuk mengecek 5 proses teratas apa saja yang memakan resource komputer
+2. Source code :
+
 
 ## Soal 3 ##
 ### Pengerjaan ###
