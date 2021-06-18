@@ -1,5 +1,7 @@
 #include<stdio.h>
 #include<pthread.h>
+#include<sys/ipc.h>
+#include<sys/shm.h>
 #include<unistd.h>
 #include<stdlib.h>
 #define MAX 6
@@ -21,13 +23,17 @@ void *multipl(void* arg)
 
 int main()
 {
-
+	key_t key = 4121;
+    	int shmid = shmget(key, 512, IPC_CREAT | 0666);
+	void* memory = shmat(shmid, NULL, 0);
+   	long long (*Hasil)[6] = memory;
+	
 	int matA[MAX][MAX];
 	int matB[MAX][MAX];
 	
 	
 	int r1=4, c1=3, r2=3, c2=6;
-    int i, j, k;
+    	int i, j, k;
 
 	printf("input matriks A : \n");
 	for (i = 0; i < r1; i++) {
@@ -43,21 +49,6 @@ int main()
             // matB[i][j] = rand() % 21;
     }
 	
-    // printf("Matriks A : \n");
-	// for (i = 0; i < r1; i++){
-	// 	for(j = 0; j < c1; j++)
-	// 		printf("%d ",matA[i][j]);
-	// 	printf("\n");
-	// }
-    // printf("\n");
-			
-    // printf("Matriks B : \n");
-	// for (i = 0; i < r2; i++){
-	// 	for(j = 0; j < c2; j++)
-	// 		printf("%d ",matB[i][j]);
-	// 	printf("\n");	
-	// }
-    // printf("\n");
 	
 	int max = r1*c2;
 		
@@ -93,6 +84,20 @@ int main()
         printf("%d ",*p);
         if ((i + 1) % c2 == 0)
             printf("\n");
+	}
+
+	for(int i=0; i<4; i++) {
+		for(int j=0; j<6; j++) {
+			Hasil[i][j] = 0;
+		}
+	}
+
+	for(int i=0; i<4; i++) {
+		for(int j=0; j<6; j++) {
+			for(int k=0; k<3; k++) {
+				Hasil[i][j] += matA[i][k] * matB[k][j];
+			}
+		}
 	}
 
 	printf("\n");
